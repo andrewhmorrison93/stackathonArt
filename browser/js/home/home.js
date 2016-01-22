@@ -8,11 +8,14 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope) {
 	var context;
+	$scope.snapped = false;
+
 	//take a photo of yourself
   $scope.snap = function() {
   	console.log("hi");
-  	context = document.getElementById('canvas').getContext("2d");
-  	context.drawImage(video, 0, 0, 640, 480);
+	  	$scope.snapped = true;
+	  	context = document.getElementById('canvas').getContext("2d");
+	  	context.drawImage(video, 0, 0, 640, 480);
 };
 
 	//save a photo of yourself
@@ -22,6 +25,10 @@ app.controller('HomeCtrl', function ($scope) {
 		//context.putImageData(imgData);
 		//CONTINUE HERE TOMORROW! GET IT TO SAVE IN A DATABASE
 			//perhaps change getImageData to .toDataUrl() //seems to be bit 64 encoded....not sure if this is important
+	}
+
+	$scope.retake = function() {
+		$scope.snapped = false;
 	}
 
 var videoObj = {"video": true, "audio": false};
