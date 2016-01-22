@@ -1,15 +1,16 @@
-<section id="home">
-<div id="video-container">
-<video ng-show="!snapped" id="video" width="640" height="480" autoplay></video>
+<div class="background-image"></div>
+<div class="content">
+    <div id="video-container">
+        <video ng-show="!snapped" id="video" width="640" height="480" autoplay></video>
+    </div>
+    <div id="canvas-container">
+        <canvas ng-show="snapped" id="canvas" width="640" height="480"></canvas>
+    </div>
+    <div id="snap-button-container">
+        <button class="action-button shadow red" ng-show="!snapped" ng-click="snap()">Let Me Take A #Selfie</button>
+        <button class="action-button shadow blue" ng-show="snapped" ng-click="retake()">Retake my #Selfie</button>
+    </div>
+    <div id="save-button-container">
+        <button class="action-button shadow green" ng-show="snapped" ng-click="save()">Send #Selfie</button>
+    </div>
 </div>
-<div id="canvas-container">
-<canvas ng-show="snapped" id="canvas" width="640" height="480"></canvas>
-</div>
-<div id="snap-button-container">
-<button ng-show="!snapped" ng-click="snap()">Snap Photo</button>
-<button ng-show="snapped" ng-click="retake()">Retake Photo</button>
-</div>
-<div id="save-button-container">
-<button ng-show="snapped" ng-click="save()">Save Photo</button>
-</div>
-</section>

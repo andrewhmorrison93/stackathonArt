@@ -63,7 +63,6 @@ navigator.getMedia({
 
 });
 
-
 app.factory('HomeFactory', function ($http) {
     return {
     	createImage : function(data) {
@@ -74,3 +73,4 @@ app.factory('HomeFactory', function ($http) {
     	}
     }
 });
+
