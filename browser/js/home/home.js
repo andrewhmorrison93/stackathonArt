@@ -6,22 +6,24 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope) {
+app.controller('HomeCtrl', function ($scope, HomeFactory) {
 	var context;
+	var canvas = document.getElementById('canvas');
 	$scope.snapped = false;
 
 	//take a photo of yourself
   $scope.snap = function() {
   	console.log("hi");
 	  	$scope.snapped = true;
-	  	context = document.getElementById('canvas').getContext("2d");
+	  	context = canvas.getContext("2d");
 	  	context.drawImage(video, 0, 0, 640, 480);
 };
 
 	//save a photo of yourself
 	$scope.save = function() {
-		var imgData = context.getImageData(0,0,640,480);
-		console.log("data ",imgData);
+		var imgData = canvas.toDataURL(0,0,640,480);
+		console.log(imgData);
+		HomeFactory.createImage(imgData);
 		//context.putImageData(imgData);
 		//CONTINUE HERE TOMORROW! GET IT TO SAVE IN A DATABASE
 			//perhaps change getImageData to .toDataUrl() //seems to be bit 64 encoded....not sure if this is important
@@ -31,6 +33,8 @@ app.controller('HomeCtrl', function ($scope) {
 		$scope.snapped = false;
 	}
 
+
+//video player logic
 var videoObj = {"video": true, "audio": false};
 
 var video = document.getElementById("video");
@@ -57,4 +61,16 @@ navigator.getMedia({
       console.log("An error occured! " + err);
     });
 
+});
+
+
+app.factory('HomeFactory', function ($http) {
+    return {
+    	createImage : function(data) {
+    		$http.post('/api/images', {image: data})
+    		.then(function(response){
+    			return response.data;
+    		})
+    	}
+    }
 });
