@@ -1,6 +1,12 @@
-<div>
+<div class="content">
 	<div id="single-image-canvas">
 		<img class="img" ng-src={{image.image}}>
         <canvas id="canvas1" width="640" height="480"></canvas>
+    </div>
+    <div id="save-button-canvas-container">
+        <button ng-click="save()">Save Reaction</button>
+    </div>
+     <div id="redo-button-canvas-container">
+        <button ng-click="redo()">Redo</button>
     </div>
 </div>

@@ -13,8 +13,30 @@ app.config(function ($stateProvider) {
 
 app.controller('ImageCtrl', function ($scope, ImageFactory, image) {
 	$scope.image = image;
-
 	var canvas, context, tool;
+	$scope.redo = function() {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	}
+	$scope.save = function() {
+		var reactionData = canvas.toDataURL(0,0,640,480);
+		//testing clearing image and setting image to what I drew!
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		console.log(reactionData);
+		var saveObj = {
+			reaction: reactionData,
+			image: image._id
+		}
+		ImageFactory.saveReaction(saveObj)
+		.then(function(reaction){
+			ImageFactory.addReaction(image._id, reaction._id)
+			.then(function(updatedImage){
+				console.log("image updated!", updatedImage);
+			})
+		})
+		// $scope.image.image = imgData;
+		// HomeFactory.createImage(imgData);
+	}
+
 	//var canvas = document.getElementById('canvas1');
 	//var context = canvas.getContext("2d");
 	
@@ -97,6 +119,18 @@ app.factory('ImageFactory', function($http) {
     		return $http.get('/api/images/' + id)
     		.then(function(response){
                 console.log("HI ", response);
+    			return response.data;
+    		})
+    	},
+    	saveReaction: function(data) {
+    		return $http.post('api/reactions/', data)
+    		.then(function(response) {
+    			return response.data;
+    		})
+    	},
+    	addReaction: function(id, data) {
+    		return $http.put('api/images/' +id, {reaction: data})
+    		.then(function(response){
     			return response.data;
     		})
     	}

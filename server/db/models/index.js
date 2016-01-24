@@ -3,4 +3,8 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./image');
+<<<<<<< HEAD
+require('./reaction');
+=======
 require('./mailer');
+>>>>>>> master
