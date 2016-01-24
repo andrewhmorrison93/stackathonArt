@@ -4,4 +4,3 @@
 require('./user');
 require('./image');
 require('./reaction');
-require('./mailer');
