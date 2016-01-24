@@ -17,7 +17,7 @@ app.controller('ImageCtrl', function ($scope, ImageFactory, image) {
 	var canvas, context, tool;
 	//var canvas = document.getElementById('canvas1');
 	//var context = canvas.getContext("2d");
-
+	
 	function init () {
     // Find the canvas element.
     canvas = document.getElementById('canvas1');
