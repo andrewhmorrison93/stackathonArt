@@ -1,0 +1,23 @@
+.action-button {
+    position: relative;
+    padding: 10px 40px;
+    margin: 0px 10px 10px 0px;
+    border-radius: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+}
+
+.red {
+    background-color: #E74C3C;
+    border-bottom: 5px solid #BD3E31;
+    text-shadow: 0px -2px #BD3E31;
+}
+
+.green {
+    background-color: #82BF56;
+    border-bottom: 5px solid #669644;
+    text-shadow: 0px -2px #669644;
+}
