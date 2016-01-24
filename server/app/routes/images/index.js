@@ -15,6 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
 	Image.findById(req.params.id)
+	.populate('reaction')
 	.then(function(image){
 		res.json(image);
 	})
@@ -34,4 +35,16 @@ router.post('/', function (req, res, next){
 	.then(function(){
 		console.log("file created!")
 	})
+});
+
+router.put('/:id', function(req, res, next){
+	Image.findById(req.params.id)
+	.then(function(image){
+		image.reaction.push(req.body.reaction);
+		return image.save();
+	})
+    .then(function(image) {
+        res.json(image);
+    })
+    .then(null, next);
 })
