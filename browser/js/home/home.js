@@ -24,9 +24,6 @@ app.controller('HomeCtrl', function ($scope, HomeFactory) {
 		var imgData = canvas.toDataURL(0,0,640,480);
 		console.log(imgData);
 		HomeFactory.createImage(imgData);
-		//context.putImageData(imgData);
-		//CONTINUE HERE TOMORROW! GET IT TO SAVE IN A DATABASE
-			//perhaps change getImageData to .toDataUrl() //seems to be bit 64 encoded....not sure if this is important
 	}
 
 	$scope.retake = function() {

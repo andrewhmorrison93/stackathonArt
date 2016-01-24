@@ -1,3 +1,5 @@
+
+
 #canvas-container {
     text-align: center;
     width: 100%;
@@ -6,6 +8,21 @@
 #video-container {
     text-align: center;
     width: 100%;
+}
+
+body{text-align: center;}
+
+.img{position:absolute;z-index:1;}
+
+#single-image-canvas{
+    display:inline-block;
+    margin: 0 auto; 
+    position:relative;
+}
+
+#canvas1{
+    position:relative;
+    z-index:20;
 }
 
 .background-image {

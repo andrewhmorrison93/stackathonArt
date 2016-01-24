@@ -1,4 +1,5 @@
 
     <div ng-repeat="image in images">
+    	<a class="thumbnail" ui-sref="image({ imageId: image._id })">
            <img ng-src={{image.image}}>
     </div>
