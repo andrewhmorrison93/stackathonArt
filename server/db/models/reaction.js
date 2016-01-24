@@ -4,12 +4,12 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 var schema = new mongoose.Schema({
-    image: {type: String, required: true},
-    reaction: [{
+    reaction: {type: String, required: true},
+    image: {
     	type: mongoose.Schema.Types.ObjectId,
-    	ref: 'Reaction'
-    }]
+    	ref: 'Image'
+    }
 });
 
 
-mongoose.model('Image', schema);
+mongoose.model('Reaction', schema);
