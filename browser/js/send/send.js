@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SendController', function ($scope, $stateParams, MailFactory) {
+app.controller('SendController', function ($scope, $stateParams, MailFactory, ImageFactory) {
 	$scope.firstFriend;
 	$scope.secondFriend;
 	$scope.thirdFriend;
@@ -24,12 +24,11 @@ app.controller('SendController', function ($scope, $stateParams, MailFactory) {
 			id: $stateParams.id,
 			subject: "Your Friend Took A Selfie!"
 		}
-		MailFactory.sendMail(sendObj);
+		ImageFactory.addEmail($stateParams.id, $scope.yourEmail)
+		.then(function() {
+			MailFactory.sendMail(sendObj);
+		})
 	}
-
-			// .then(function(image){
-		// 	MailFactory.sendMail({id: image._id});
-		// })
 });
 
 app.factory('MailFactory', function ($http) {

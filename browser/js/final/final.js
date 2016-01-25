@@ -59,9 +59,3 @@ app.controller('FinalCtrl', function ($scope, ImageFactory, image) {
     }
 
 });
-
-app.factory('FinalFactory', function($http){
-	return {
-
-	}
-});

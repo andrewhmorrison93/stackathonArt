@@ -31,15 +31,17 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
                 ImageFactory.addReaction(image._id, reaction._id)
                     .then(function(updatedImage) {
                         console.log("image updated!", updatedImage);
+                        if (updatedImage.reaction.length == 3) {
+                            MailFactory.sendMail({
+                            email: updatedImage.email,
+                            subject: "Check Out Your Friends' Reactions",
+                            id: "/final/" + updatedImage._id
+                        });
+                        }
+                        
                     })
             })
-            // $scope.image.image = imgData;
-            // HomeFactory.createImage(imgData);
     }
-
-    //var canvas = document.getElementById('canvas1');
-    //var context = canvas.getContext("2d");
-
     function init() {
         // Find the canvas element.
         canvas = document.getElementById('canvas1');
@@ -135,6 +137,14 @@ app.factory('ImageFactory', function($http) {
                 .then(function(response) {
                     return response.data;
                 })
+        },
+        addEmail: function(id, data) {
+            return $http.put('api/images/' + id, {
+                email: data
+            })
+            .then(function(response) {
+                return response.data;
+            })
         }
     }
 });

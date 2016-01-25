@@ -10,7 +10,10 @@ var schema = new mongoose.Schema({
     reaction: [{
     	type: mongoose.Schema.Types.ObjectId,
     	ref: 'Reaction'
-    }]
+    }],
+    email: {
+    	type: String
+    }
 });
 
 mongoose.model('Image', schema);

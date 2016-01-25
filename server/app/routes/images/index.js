@@ -40,7 +40,12 @@ router.post('/', function (req, res, next){
 router.put('/:id', function(req, res, next){
 	Image.findById(req.params.id)
 	.then(function(image){
-		image.reaction.push(req.body.reaction);
+		if (req.body.reaction) {
+			image.reaction.push(req.body.reaction);
+		}
+		else if (req.body.email) {
+			image.email = req.body.email;
+		}
 		return image.save();
 	})
     .then(function(image) {
