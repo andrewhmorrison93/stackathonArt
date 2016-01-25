@@ -21,7 +21,7 @@ app.controller('SendController', function ($scope, $stateParams, MailFactory, Im
 		var emails = [$scope.firstFriend, $scope.secondFriend, $scope.thirdFriend];
 		var sendObj = {
 			email: emails,
-			id: $stateParams.id,
+			id: 'images/' + $stateParams.id,
 			subject: "Your Friend Took A Selfie!"
 		}
 		ImageFactory.addEmail($stateParams.id, $scope.yourEmail)
