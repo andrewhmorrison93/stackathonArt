@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, HomeFactory) {
+app.controller('HomeCtrl', function ($scope, HomeFactory, MailFactory, $state) {
 	var context;
 	var canvas = document.getElementById('canvas');
 	$scope.snapped = false;
@@ -23,7 +23,12 @@ app.controller('HomeCtrl', function ($scope, HomeFactory) {
 	$scope.save = function() {
 		var imgData = canvas.toDataURL(0,0,640,480);
 		console.log(imgData);
-		HomeFactory.createImage(imgData);
+		HomeFactory.createImage(imgData)
+		.then(function(image){
+			console.log("WE GOT THIS,", image);
+			$state.go('send', {id: image._id});
+			
+		})
 	}
 
 	$scope.retake = function() {
@@ -58,13 +63,20 @@ navigator.getMedia({
       console.log("An error occured! " + err);
     });
 
+    //email logic
+    $scope.sendMail = function (data) {
+	    console.log("Got into Controller")
+	    return MailFactory.sendMail(data);
+  	}
+
 });
 
 app.factory('HomeFactory', function ($http) {
     return {
     	createImage : function(data) {
-    		$http.post('/api/images', {image: data})
+    		return $http.post('/api/images', {image: data})
     		.then(function(response){
+    			console.log("response", response);
     			return response.data;
     		})
     	}

@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('ImageCtrl', function($scope, ImageFactory, image) {
+app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
     $scope.image = image;
     var canvas, context, tool;
     $scope.redo = function() {

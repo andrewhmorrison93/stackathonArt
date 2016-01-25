@@ -2,19 +2,19 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: "stackathon@gmail.com",
-        pass: "" //password has been changed
+        user: "stackathonart@gmail.com",
+        pass: "stackathon1" //password has been changed
     }
 });
 
 exports.send = function(req, res) {
     console.log("req", req.body);
     var mailOptions = {
-        to: req.body.userID.email,
-        subject: 'You have received a request to react to a #selfie',
+        to: req.body.email,
+        subject: req.body.subject,
         from: "stackathon@gmail.com",
-        text: 'Please click on the following link to react: http:// ' + req.params.id
-    };
+        text: 'url: ' + req.body.id
+  };
 
     transporter.sendMail(mailOptions, function(err, info) {
         if (err) {
