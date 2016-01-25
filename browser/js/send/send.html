@@ -1,6 +1,6 @@
 <div id="form-main">
     <div id="form-div">
-        <form ng-submit="send()" class="form" id="form1">
+        <form ng-submit="send()" class="form" id="form1" onsubmit="return validate()">
             <p class="email">
                 <input ng-model="firstFriend" name="email" type="text" class="validate[required,custom[email]] feedback-input" id="email" placeholder="First Friend" />
                 <input ng-model="secondFriend" name="email" type="text" class="validate[required,custom[email]] feedback-input" id="email" placeholder="Second Friend" />
@@ -8,7 +8,7 @@
                 <input ng-model="yourEmail" name="email" type="text" class="validate[required,custom[email]] feedback-input" id="email" placeholder="Your Email" />
             </p>
             <div class="submit">
-                <input type="submit" value="SEND" id="button-blue" />
+                <input type="submit" value="SHARE WITH FRIENDS" id="button-blue" />
                 <div class="ease"></div>
             </div>
         </form>

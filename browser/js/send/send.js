@@ -9,6 +9,17 @@ app.config(function ($stateProvider) {
 
 });
 
+function validate() {
+  var Email =document.getElementById("email").value;
+  var filterEmail=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  if(!filterEmail.test(Email)) {
+    alert("Email is not valid!");
+    return false;
+  }else  {
+     alert("Thanks for sharing with your friends!");
+  }
+}
+
 app.controller('SendController', function ($scope, $stateParams, MailFactory, ImageFactory) {
 	$scope.firstFriend;
 	$scope.secondFriend;
