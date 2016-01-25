@@ -13,12 +13,22 @@ app.config(function($stateProvider) {
 
 app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
     $scope.image = image;
+    $scope.color = "black";
 
     var canvas, context, tool, canvas2, context2;
     var counter = 200;
 
+    $scope.setcolor = function (color) {
+        $scope.color = color;
+    }
+
     $scope.redo = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
+        canvas2.height = 480;
+        context2.clearRect(0,0, canvas2.width, canvas2.height);
+        context2.fillStyle=$scope.color;
+        context2.fillRect(0,0,100,480);
+        counter = 200;
     }
     $scope.save = function() {
         var reactionData = canvas.toDataURL(0, 0, 640, 480);
@@ -83,11 +93,11 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
         this.mousemove = function(ev) {
             if (tool.started) {
                 context.lineTo(ev._x, ev._y);
-                context.strokeStyle = "red";
+                context.strokeStyle = $scope.color;
                 context.stroke();
                 counter--;
                 canvas2.height = counter * 2.4;
-                context2.fillStyle="#FF0000";
+                context2.fillStyle=$scope.color;
                 context2.fillRect(0,0,100,counter * 2.4);
                 console.log(counter);
                 if (counter <0) {
@@ -133,8 +143,8 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
         // Get the 2D canvas context.
         context2 = canvas2.getContext('2d');
 
-        context2.fillStyle="#FF0000";
-        context2.fillRect(0,0,100,500);
+        context2.fillStyle=$scope.color;
+        context2.fillRect(0,0,100,480);
 
 
     console.log("IMAGE IS:", $scope.image);
@@ -173,42 +183,3 @@ app.factory('ImageFactory', function($http) {
         }
     }
 });
-
-// app.directive('rectDesigner', function() {
-
-//   function link(scope, el, attr) {
-
-//     var svgwidth = 500,
-//       svgheight = 600;
-
-//     var svgContainer = d3.select(el[0])
-//       .append('svg')
-//       .attr('id', 'svgcontainer')
-//       .attr({
-//         width: svgwidth,
-//         height: svgheight
-//       });
-//     // only append one rect
-//     var rect = svgContainer
-//       .append("rect")
-//       .attr("id", "Rect")
-//       .attr('transform', 'translate(' + svgwidth / 2 + ',' + svgheight / 2 + ')');
-
-//     scope.$watchGroup(['rectWidth', 'rectHeight'], function(newValues) {
-
-//       var width = newValues[0];
-//       var height = newValues[1];
-
-//       // now change it's width and height
-//       rect.attr({
-//         width: width,
-//         height: height
-//       });
-
-//     }, true);
-//   }
-//   return {
-//     controller: ImageCtrl,
-//     link: link,
-//   };
-// });
