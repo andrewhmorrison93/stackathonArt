@@ -13,7 +13,7 @@ exports.send = function(req, res) {
         to: req.body.email,
         subject: req.body.subject,
         from: "stackathon@gmail.com",
-        text: 'https://hidden-dawn-70405.herokuapp.com/' + req.body.id
+        text: 'https://frozen-peak-13379.herokuapp.com/' + req.body.id
   };
 
     transporter.sendMail(mailOptions, function(err, info) {
