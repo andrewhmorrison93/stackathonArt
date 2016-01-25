@@ -13,7 +13,10 @@ app.config(function($stateProvider) {
 
 app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
     $scope.image = image;
-    var canvas, context, tool;
+
+    var canvas, context, tool, canvas2, context2;
+    var counter = 200;
+
     $scope.redo = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -35,7 +38,7 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
                             MailFactory.sendMail({
                             email: updatedImage.email,
                             subject: "Check Out Your Friends' Reactions",
-                            id: "/final/" + updatedImage._id
+                            id: "final/" + updatedImage._id
                         });
                         }
                         
@@ -69,7 +72,9 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
         this.mousedown = function(ev) {
             context.beginPath();
             context.moveTo(ev._x, ev._y);
-            tool.started = true;
+            if (counter >0) {
+                tool.started = true;
+            }
         };
 
         // This function is called every time you move the mouse. Obviously, it only
@@ -80,6 +85,14 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
                 context.lineTo(ev._x, ev._y);
                 context.strokeStyle = "red";
                 context.stroke();
+                counter--;
+                canvas2.height = counter * 2.4;
+                context2.fillStyle="#FF0000";
+                context2.fillRect(0,0,100,counter * 2.4);
+                console.log(counter);
+                if (counter <0) {
+                    tool.started = false;
+                }
             }
         };
 
@@ -110,7 +123,19 @@ app.controller('ImageCtrl', function($scope, ImageFactory, image, MailFactory) {
         }
     }
 
+
     init();
+
+    //changing ink-jar
+    // Find the canvas element.
+        canvas2 = document.getElementById('canvas2');
+
+        // Get the 2D canvas context.
+        context2 = canvas2.getContext('2d');
+
+        context2.fillStyle="#FF0000";
+        context2.fillRect(0,0,100,500);
+
 
     console.log("IMAGE IS:", $scope.image);
 });
@@ -148,3 +173,42 @@ app.factory('ImageFactory', function($http) {
         }
     }
 });
+
+// app.directive('rectDesigner', function() {
+
+//   function link(scope, el, attr) {
+
+//     var svgwidth = 500,
+//       svgheight = 600;
+
+//     var svgContainer = d3.select(el[0])
+//       .append('svg')
+//       .attr('id', 'svgcontainer')
+//       .attr({
+//         width: svgwidth,
+//         height: svgheight
+//       });
+//     // only append one rect
+//     var rect = svgContainer
+//       .append("rect")
+//       .attr("id", "Rect")
+//       .attr('transform', 'translate(' + svgwidth / 2 + ',' + svgheight / 2 + ')');
+
+//     scope.$watchGroup(['rectWidth', 'rectHeight'], function(newValues) {
+
+//       var width = newValues[0];
+//       var height = newValues[1];
+
+//       // now change it's width and height
+//       rect.attr({
+//         width: width,
+//         height: height
+//       });
+
+//     }, true);
+//   }
+//   return {
+//     controller: ImageCtrl,
+//     link: link,
+//   };
+// });
